@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.12)
+project(FileAssociation)
+
+set(FileAssociation_HDR
+    FileAssociation.hpp
+)
+
+set(FileAssociation_SRC
+    FileAssociation.cpp
+)
+
+set(FileAssociation_RESOURCES
+    icon.qrc
+)
+
+add_library(${PROJECT_NAME} ${QMPLAY2_MODULE}
+    ${FileAssociation_HDR}
+    ${FileAssociation_SRC}
+    ${FileAssociation_RESOURCES}
+)
+
+if(USE_PCH)
+    target_precompile_headers(${PROJECT_NAME}
+        PRIVATE
+        ${FileAssociation_HDR}
+    )
+endif()
+
+target_link_libraries(${PROJECT_NAME}
+    libqmplay2
+    shlwapi
+)
+
+install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${MODULES_INSTALL_PATH})
